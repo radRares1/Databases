@@ -1,0 +1,55 @@
+CREATE DATABASE drivingSchool
+
+CREATE TABLE Car(
+carId TINYINT PRIMARY KEY,
+plateNumber VARCHAR(50),
+)
+
+CREATE TABLE Student(
+studentId TINYINT PRIMARY KEY,
+studentName VARCHAR(50),
+carId TINYINT FOREIGN KEY REFERENCES Car(carId))
+
+
+CREATE TABLE Instructor(
+instructorId TINYINT PRIMARY KEY,
+instructorName VARCHAR(50)
+)
+
+CREATE TABLE Route_(
+routeId TINYINT PRIMARY KEY
+)
+
+CREATE TABLE drivingLesson(
+lessonId TINYINT PRIMARY KEY,
+instructorId TINYINT FOREIGN KEY REFERENCES Instructor(instructorId),
+carId TINYINT FOREIGN KEY REFERENCES Car(carId)
+)
+
+CREATE TABLE LawTeacher(
+teacherId TINYINT PRIMARY KEY
+)
+
+CREATE TABLE lawLesson(
+lawLessonId TINYINT PRIMARY KEY,
+studentId TINYINT FOREIGN KEY REFERENCES Student(studentId),
+teacherId TINYINT FOREIGN KEY REFERENCES LawTeacher(teacherId)
+)
+
+CREATE TABLE ExamSupervisor(
+supervisorId TINYINT PRIMARY KEY)
+
+CREATE TABLE drivingExam(
+examId TINYINT PRIMARY KEY REFERENCES Student(studentId),
+carId TINYINT FOREIGN KEY REFERENCES Car(carId),
+routeId TINYINT FOREIGN KEY REFERENCES Route_(routeId),
+supervisorId TINYINT FOREIGN KEY REFERENCES ExamSupervisor(supervisorId)
+)
+
+CREATE TABLE writtenExam(
+examId TINYINT PRIMARY KEY,
+supervisorId TINYINT FOREIGN KEY REFERENCES ExamSupervisor(supervisorId),
+studentId TINYINT FOREIGN KEY REFERENCES Student(studentId)
+)
+
+

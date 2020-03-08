@@ -1,0 +1,35 @@
+CREATE DATABASE facultyy
+
+CREATE TABLE GROUPS(
+groupId TINYINT PRIMARY KEY NOT NULL,
+noOfStudents INT)
+
+
+CREATE TABLE STUDENT(
+studentId TINYINT PRIMARY KEY ,
+firstName VARCHAR(50),
+latName VARCHAR(50),
+groupId TINYINT FOREIGN KEY REFERENCES GROUPS(groupId))
+
+CREATE TABLE CARDS(
+cardId TINYINT PRIMARY KEY REFERENCES STUDENT(studentId),
+emissionDate DATE NOT NULL,
+VALIDATED BIT)
+
+
+CREATE TABLE TEACHER(
+teacherId TINYINT PRIMARY KEY IDENTITY,
+teacherName VARCHAR(50),
+domain VARCHAR(50) DEFAULT'CS'
+)
+
+CREATE TABLE COURSES(
+studentId TINYINT REFERENCES Student(studentId),
+teacherId TINYINT REFERENCES Teacher(teacherId),
+CONSTRAINT PK_COURSES PRIMARY KEY(studentId, teacherId),
+nameCourse VARCHAR(50),
+dateOfCourse DATE,
+numberOfCredits int check(numberOfCredits>=3 and numberOfCredits<=7)
+)
+
+
